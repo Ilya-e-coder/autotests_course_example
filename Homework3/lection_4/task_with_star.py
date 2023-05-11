@@ -18,9 +18,11 @@ def max_division_by_3(num):
 
     for i in range(len(b)):
         if num >= int(new_num) and new_num[i] != '9':
+            u = 9
             while k > 0:
-                b[i] = str(k)
+                b[i] = str(u)
                 v = ''.join(b)
+                u -= 1
                 if int(v) % 3 == 0:
                     new_num = v
                     break
