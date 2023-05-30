@@ -28,9 +28,11 @@ class PublicTransport:
     """
     Класс PublicTransport используется для определения параметров транспорта
 
-    :passengers: кол-во пассажиров
-    :(private) park: Парк приписки автобуса
-    :(protected): pare - Стоимость проезда
+    :brand: Марка транспорта
+    :(protected) engine_power: Мощность двигателя
+    :year: Год выпуска
+    :color: Цвет
+    :max_speed: Максимальная скорость
     """
 
     def __init__(self, brand, engine_power, year, color, max_speed):
@@ -42,6 +44,9 @@ class PublicTransport:
 
     @property
     def info(self):
+        """
+        Выводит на печать информацию о: марке, цвете, годе выпуска и мощности двигателя
+        """
         transport_info = f'{self.brand} {self.color} {self.year} {self._engine_power}'
         return transport_info
 
@@ -50,11 +55,9 @@ class Bus(PublicTransport):
     """
     Класс Bus используется для определения параметров автобуса
 
-    :brand: Марка транспорта
-    :(protected) engine_power: Мощность двигателя
-    :year: Год выпуска
-    :color: Цвет
-    :max_speed: Максимальная скорость
+    :passengers: кол-во пассажиров
+    :(private) park: Парк приписки автобуса
+    :(protected): pare - Стоимость проезда
     """
 
     def __init__(self, brand, engine_power, year, color, max_speed, passengers, park, fare):
@@ -65,15 +68,28 @@ class Bus(PublicTransport):
 
     @property
     def park(self):
+        """
+        Возвращаем значение park
+        """
         return self.__park
 
     @park.setter
     def park(self, new_park):
-        a = range(1000, 10000)
-        assert new_park in a
+        """
+        Проверка номера парка в диапазоне
+        """
+        numbs = range(1000, 10000)
+        assert new_park in numbs
 
 
 class Tram(PublicTransport):
+    """
+    Класс Tram используется для определения параметров трамвая
+
+    :(private) route: маршрут трамвая
+    :path: длина маршрута
+    :(protected) fare: Стоимость проезда
+    """
     def __init__(self, brand, engine_power, year, color, max_speed, route, path, fare):
         super().__init__(brand, engine_power, year, color, max_speed)
         self.__route = route
@@ -82,6 +98,9 @@ class Tram(PublicTransport):
 
     @property
     def how_long(self):
+        """
+        Вычисляем время прохождения маршрута
+        """
         time_trip = self.max_speed / (4 * self.path)
         return time_trip
 
