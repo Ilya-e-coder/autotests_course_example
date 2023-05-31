@@ -22,22 +22,24 @@ class Segment:
     """
 
     def __init__(self, dots_1, dots_2):
-        self.dots_1 = dots_1
-        self.dots_2 = dots_2
+
+        self.x_1 = dots_1[0]
+        self.y_1 = dots_1[1]
+        self.x_2 = dots_2[0]
+        self.y_2 = dots_2[1]
 
     def length(self):
         """
         Возвращает длину отрезка, с округлением до 2 знаков после запятой
         """
 
-        return round(hypot(self.dots_2[0] - self.dots_1[0], self.dots_2[1] - self.dots_1[1]), 2)
+        return round(hypot(self.x_2 - self.x_1, self.y_2 - self.y_1), 2)
 
     def x_axis_intersection(self):
         """
         True, если отрезок пересекает ось абцисс, иначе False
         """
-
-        if self.dots_1[1] < 0 and self.dots_2[1] > 0:
+        if (self.x_1 >= 0 and self.x_2 <= 0) or (self.x_1 <= 0 and self.x_2 >= 0):
             return True
         else:
             return False
@@ -47,7 +49,7 @@ class Segment:
         True, если отрезок пересекает ось ординат, иначе False
         """
 
-        if self.dots_1[0] < 0 and self.dots_2[0] > 0:
+        if (self.y_1 >= 0 and self.y_2 <= 0) or (self.y_1 <= 0 and self.y_2 >= 0):
             return True
         else:
             return False

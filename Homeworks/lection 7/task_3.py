@@ -80,6 +80,9 @@ class Bus(PublicTransport):
         """
         numbs = range(1000, 10000)
         assert new_park in numbs
+        valid_num = new_park
+        return valid_num
+
 
 
 class Tram(PublicTransport):
