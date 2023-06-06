@@ -28,7 +28,7 @@ class Trigon:
         :param args: кортеж с данными
         """
         for attr in args:
-            if type(attr) != int:
+            if not isinstance(attr, int):
                 raise TypeError('Стороны должны быть числами')
             elif attr < 0:
                 raise ValueError('Стороны должны быть положительными')
