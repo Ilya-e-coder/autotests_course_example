@@ -33,30 +33,34 @@
 
 # Здесь пишем код
 
+
 import datetime
 import time
 from pathlib import Path
 
-dt = datetime.datetime.now()
+path_catalog = Path.cwd()
 
 
-def func_log(func):
-    def wrapper(file_log=None):
-        if not file_log:
-            file_log = Path(Path.cwd(), 'log.txt')
-        with open(file_log, 'a', encoding='utf-8') as f:
-            f.write(f'{func.__name__} вызвана {dt.strftime("%d.%m %H:%M:%S")} \n')
+def func_log(file_log=None):
+    def decorator_repeat(func):
+        def wrapper_repeat():
+            file_log_u = file_log or 'log.txt'
+            file_log_path = Path(Path.cwd(), file_log_u)
+            with open(file_log_path, 'a', encoding='utf-8') as f:
+                f.write(f'{func.__name__} вызвана {datetime.datetime.now().strftime("%d.%m %H:%M:%S")} \n')
+                func()
 
-    func()
-    return wrapper
+        return wrapper_repeat
+
+    return decorator_repeat
 
 
-@func_log
+@func_log()
 def hello_func():
-    time.sleep(1)
+    time.sleep(3)
 
 
-@func_log
+@func_log(file_log='f_2')
 def hello_func_2():
     time.sleep(2)
 
