@@ -10,24 +10,36 @@ import pytest
 
 
 def all_division(*arg1):
+
     division = arg1[0]
     for i in arg1[1:]:
         division /= i
     return division
 
 
-def test1():
-    assert all_division(2, 2), 'На ноль делить нельзя'
-
-
-
-def test2():
-    assert all_division(100, 9) == 11.11111111111111, 'Неверное значение'
-
-
-def test3():
-    assert all_division(-1, 1) == 0
-
-
+@pytest.mark.zero
+@pytest.mark.smoke
+@pytest.mark.acceptance
 def test_zero():
-    assert all_division(0, 1) == 1
+    assert all_division(0, 1, 2, 3) == 0
+
+
+@pytest.mark.smoke
+def test_positive():
+    assert all_division(15, 5, 2, 1) == 1.5
+
+
+@pytest.mark.zero
+def test_div_zero():
+    with pytest.raises(ZeroDivisionError):
+        all_division(1, 2, 0, 3)
+
+
+def test_type_error():
+    with pytest.raises(TypeError):
+        all_division(1, '2', 3, 4)
+
+
+def test_index_error():
+    with pytest.raises(IndexError):
+        all_division()
